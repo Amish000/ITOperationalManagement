@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Sidebar.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dashboard/js/common.js"></script>
+
+    <div class="d-flex flex-nowrap">
+        @await Html.PartialAsync("_dashboardSideMenu")
+        <main style="width:100%;overflow-x: auto;" role="main">
+            <div>
+                <div class="header">
+                    <a asp-area="" asp-controller="Home" asp-action="Index"> Go to Website</a>
+                </div>
+                @{
+                    string? MessageType = TempData["MessageType"]?.ToString();
+                    if (!string.IsNullOrEmpty(MessageType))
+                    {
+                        <div class="p-3">
+                            <div class="alert alert-@MessageType alert-dismissible" role="alert">
+                                @TempData["SuccessMessage"]
+                                <button class="btn btn-sm btn-white close" data-dismiss="alert-dismissible" style="float:right">
+                                    &times;
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

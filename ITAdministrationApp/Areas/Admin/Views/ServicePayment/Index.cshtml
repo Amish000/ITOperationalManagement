@@ -1,0 +1,284 @@
+﻿@using ITAdministrationApp.Areas.Admin.Models
+@model List<ServicePaymentModel>
+
+@{
+    Layout = "/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="main">
+    <div class="Breadcrumb">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a style="text-decoration: none;" href="#">Admin Panel</a></li>
+                <li class="breadcrumb-item">
+                    <a style="text-decoration: none;" href="/admin/itservice">
+                        Domain
+                        Services
+                    </a>
+                </li>
+                <li class="breadcrumb-item"><a style="text-decoration: none;" href="#">Service Payments</a></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="Search">
+        <form method="get" action="@Url.Action("Index", "ServicePayment")">
+            <input type="search" name="search" value="@ViewBag.SearchKeyword" placeholder="Search here..."
+                   aria-label="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div class="Drop">
+            <a asp-action="Create" class="btn btn-primary" asp-route-serviceID="@ViewBag.ServiceID">Add Payment</a>
+        </div>
+        @* <div class="Drop">
+        <a asp-action="Index" asp-controller="ItService" class="btn btn-primary">Back To Services</a>
+        </div> *@
+    </div>
+
+    <div class="tables">
+        <table>
+            <thead>
+                <tr>
+                    @* <th>Log ID</th>
+                    <th>Service ID</th> *@
+                    <th>S.N</th>
+                    <th>Paid Amount</th>
+                    <th>Paid Date</th>
+                    @* <th>Added By</th>
+                    <th>Added On</th> *@
+                    <th>Paid By</th>
+                    <th>Vendor</th>
+                    <th>Remarks</th>
+                    <th>Status</th>
+                    <th style="padding-left: 10px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @* <td>@item.LogID</td>
+                    <td>@item.ServiceID</td> *@
+                        <td>@item.RowNumber</td>
+                        @* <td>@item.LogID</td> *@
+                        <td>@item.PaidAmount</td>
+                        <td>@(item.LastPaidDate?.ToString("yyyy-MM-dd"))</td>
+                        @* <td>@item.AddedBy</td>
+                    <td>@item.AddedOn.ToString("yyyy-MM-dd")</td> *@
+
+                        <td>@item.PaidBy</td>
+                        <td>@item.Vendor</td>
+
+                        <td>@item.Remarks</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span @* class="text-success" *@>Active</span>
+                            }
+                            else
+                            {
+                                <span @* class="text-warning" *@>Pending</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                @* <form method="post" asp-action="Delete" asp-route-id="@item.LogID" ;">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form> *@
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@item.LogID" />
+                                    <input type="hidden" name="serviceID" value="@ViewBag.ServiceID" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="paginations">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                        @Html.ActionLink("<<", "Index", new
+                            {
+                                page = ViewBag.Page - 1,
+                                search = ViewBag.SearchKeyword,
+                                sortColumn = ViewBag.SortColumn,
+                                sortOrder = ViewBag.SortOrder
+                            }, new
+                            {
+                                @class = "page-link",
+                                @aria_label = "Previous"
+                            })
+                    </li>
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.Page == i ? "active" : "")">
+                            @Html.ActionLink(i.ToString(), "Index", new
+                                {
+                                    page = i,
+                                    search = ViewBag.SearchKeyword,
+                                    sortColumn = ViewBag.SortColumn,
+                                    sortOrder = ViewBag.SortOrder
+                                }, new { @class = "page-link" })
+                        </li>
+                    }
+                    <li class="page-item @(ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
+                        @Html.ActionLink(">>", "Index", new
+                            {
+                                page = ViewBag.Page + 1,
+                                search = ViewBag.SearchKeyword,
+                                sortColumn = ViewBag.SortColumn,
+                                sortOrder = ViewBag.SortOrder
+                            }, new
+                            {
+                                @class = "page-link",
+                                @aria_label = "Next"
+                            })
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<style>
+    .main {
+        height: 90vh;
+        width: 100%;
+        overflow: hidden;
+        .tables
+
+    {
+        margin: 25px 30px;
+        border: 1px solid #808080;
+        .paginations
+
+    {
+        display: flex;
+        justify-content: end;
+        padding: 18px 15px 0px 0px;
+    }
+
+    table {
+        width: 100%;
+        tr
+
+    {
+        border-bottom: 1px solid #808080;
+        height: 70px;
+    }
+
+    th {
+        padding: 0px 20px;
+        color: #000000;
+        font-family: "Montserrat";
+        font-size: 16px;
+        a
+
+    {
+        text-decoration: none;
+        color: black
+    }
+
+    }
+
+    td {
+        padding-left: 20px;
+        font-family: "Montserrat";
+        font-size: 16px;
+        button
+
+    {
+        font-family: "Montserrat";
+        font-size: 15px;
+        height: 35px;
+        border-radius: 5px;
+        border: none;
+        width: 100px;
+        /* background-color: #0d6efd; */
+        color: #fff;
+        margin-right: 12px;
+    }
+
+    }
+    }
+    }
+    }
+
+    .Breadcrumb {
+        padding-left: 30px;
+        padding-top: 25px;
+    }
+
+    .nav ol {
+        font-family: "Montserrat";
+        font-size: 20px;
+    }
+
+    .breadcrumb {
+        font-size: 20px;
+        font-family: "Montserrat";
+        color: #027BFF;
+    }
+
+    .Search {
+        display: flex;
+        justify-content: space-between;
+        form
+
+    {
+        padding-left: 30px;
+        padding-top: 20px;
+        display: flex;
+        gap: 10px;
+        input
+
+    {
+        padding-left: 10px;
+        height: 35px;
+        width: 318px;
+        border-radius: 5px;
+        border: 1px solid #808080;
+    }
+
+    button {
+        font-family: "Montserrat";
+        font-size: 15px;
+        height: 35px;
+        border-radius: 5px;
+        border: none;
+        width: 85px;
+        background-color: #0d6efd;
+        color: #fff;
+    }
+
+    }
+
+    .Drop {
+        padding-right: 30px;
+        padding-top: 20px;
+        display: flex;
+        gap: 15px;
+        button
+
+    {
+        font-family: "Montserrat";
+        font-size: 15px;
+        height: 35px;
+        border-radius: 5px;
+        border: none;
+        width: 141px;
+        background-color: #197EFB;
+        color: #fff;
+    }
+
+    }
+    }
+</style>
+

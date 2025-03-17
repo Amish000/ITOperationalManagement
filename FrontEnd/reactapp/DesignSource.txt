@@ -1,0 +1,9 @@
+Font: Poppin {https://fonts.google.com/specimen/Poppins}
+Colors: {
+    yellow: FFC20E,
+    blue: 253D90c, 
+    darkPuprle: 121C3E,
+    Green: 3F861E,
+    Red: FF0000, 
+    Page-background: E3EDF9,
+}

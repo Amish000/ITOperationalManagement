@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h3 style="color: #0d6efd;"><marquee direction='up' class="d-flex justify-content-center mt-4  ">This is Admin Dashboard</marquee></h3>
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-4">
+                <div style="background-color: #0d6efd;" class="card text-white  mb-3">
+                    <div class="card-header">Card 1</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Card 2</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Success card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div style="background-color: #dc3545" class="card text-white mb-3">
+                    <div class="card-header">Card 3</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Warning card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <style>
+        
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            margin: 20px;
+        }
+    </style>

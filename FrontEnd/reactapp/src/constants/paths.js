@@ -1,0 +1,27 @@
+export const PATHS = {
+  HOME: "/",
+  LOGIN: "/login",
+  REGISTER: "/register",
+  UNAUTHORIZED: "/unauthorized",
+  PROFILE: "/profile",
+  USERS: "/users",
+  USER_MANAGEMENT: "/user-management",
+  ADD_USER: "/user-management/add",
+  SETTINGS: "/settings",
+  SERVICE_TICKET: "/ServiceTicket",
+  ROOT: "/",
+  ADD_TICKET: "/AddTicket",
+  SERVICE_TICKET_LIST: "/ServiceTicketList",
+  IT_SERVICE_LIST: "/ITServiceList",
+  DASHBOARD: "/Dashboard",
+  SERVICE_TICKET_LIST_ACTIVE: "/ServiceTicketActive",
+  SERVICE_TICKET_LIST_SETTLED: "/ServiceTicketSettled",
+  TICKET_DETAILS: "/TicketDetails",
+  ALLNOTIFICATIONS: "/allNotifications",
+  ADD_SERVICES: "/AddServices",
+  ACTIVE_SERVICES: "/ActiveServices",
+  EXPIRED_SERVICES: "/ExpiredServices",
+  MANAGE_USERS: "/ManageUsers",
+};
+
+export const DEFAULT_REDIRECT = PATHS.LOGIN;

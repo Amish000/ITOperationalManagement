@@ -1,0 +1,215 @@
+﻿@using ITAdministrationApp.Areas.Admin.Models
+@model List<LogTicketModel>
+
+@{
+    Layout = "/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="main">
+
+    <div class="Breadcrumb">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a style="text-decoration: none;" href="#">Admin Panel</a></li>
+                <li class="breadcrumb-item"><a style="text-decoration: none;" href="#">Log Tickets</a></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="Search">
+        <form asp-action="index" method="get">
+            <input type="text" name="search" value="@ViewBag.SearchKeyword" id="search" class="form-control"
+                   placeholder="Search here..." required />
+            <button type="submit"> Search</button>
+        </form>
+
+        @*   <div class="Drop">
+        <button type="button"
+        onclick="location.href='@Url.Action("CreateLogTicket", "Tickets", new { area = "Admin" })'">
+        Create
+        Log Ticket
+        </button>
+        </div> *@
+
+    </div>
+
+    <div class="tables">
+        <table>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortExpression="LogID"
+                       asp-route-sortOrder="@(ViewBag.SortOrder == "asc" ? "desc" : "asc")"
+                       asp-route-searchText="@ViewBag.SearchText">
+                        Log ID @if (ViewBag.SortExpression == "LogID")
+                        {
+                            <span>@(ViewBag.SortOrder == "asc" ? "↑" : "↓")</span>
+                        }
+                    </a>
+                </th>
+                <th>TicketID</th>
+                <th>Title</th>
+                <th>PrevTicketStatusID</th>
+                <th>CurrentTicketStatusID</th>
+                <th>Remarks</th>
+
+
+            </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.LogID</td>
+                        <td>@item.TicketID</td>
+                        <td>@item.Title</td>
+                        <td>@item.PrevTicketStatusID</td>
+                        <td>@item.CurrentTicketStatusID</td>
+                        <td>@item.Remarks</td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="paginations">
+            <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                            @Html.ActionLink("<<", "Index", new
+                                {
+                                    page = ViewBag.Page - 1,
+                                    search = ViewBag.SearchKeyword,
+                                    sortColumn = ViewBag.SortColumn,
+                                    sortOrder = ViewBag.SortOrder
+                                }, new
+                                { @class = "page-link", @aria_label = "Previous" })
+                        </li>
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li class="page-item @(ViewBag.Page == i ? "active" : "")">
+                                @Html.ActionLink(i.ToString(), "Index", new
+                                    {
+                                        page = i,
+                                        search = ViewBag.SearchKeyword,
+                                        sortColumn = ViewBag.SortColumn,
+                                        sortOrder = ViewBag.SortOrder
+                                    }, new
+                                    {
+                                        @class = "page-link"
+                                    })
+                            </li>
+                        }
+                        <li class="page-item @(ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
+                            @Html.ActionLink(">>", "Index", new
+                                {
+                                    page = ViewBag.Page + 1,
+                                    search = ViewBag.SearchKeyword,
+                                    sortColumn = ViewBag.SortColumn,
+                                    sortOrder = ViewBag.SortOrder
+                                }, new
+                                { @class = "page-link", @aria_label = "Next" })
+                        </li>
+                    </ul>
+                </nav>
+            </nav>
+        </div>
+    </div>
+
+    <style>
+        .main {
+            height: 90vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .tables {
+            margin: 25px 30px;
+            border: 1px solid #808080;
+        }
+
+        .paginations {
+            display: flex;
+            justify-content: end;
+            padding: 18px 15px 0px 0px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        tr {
+            border-bottom: 1px solid #808080;
+            height: 70px;
+        }
+
+        th {
+            padding: 0px 30px;
+            color: #000000;
+            font-family: "Montserrat";
+            font-size: 16px;
+        }
+
+        td {
+            padding-left: 30px;
+            font-family: "Montserrat";
+            font-size: 16px;
+        }
+
+        button {
+            font-family: "Montserrat";
+            font-size: 15px;
+            height: 35px;
+            border-radius: 5px;
+            border: none;
+            width: 119px;
+            background-color: #197EFB;
+            color: #fff;
+        }
+
+        .Breadcrumb {
+            padding-left: 30px;
+            padding-top: 25px;
+        }
+
+        .nav ol {
+            font-family: "Montserrat";
+            font-size: 20px;
+        }
+
+        .breadcrumb {
+            font-size: 20px;
+            font-family: "Montserrat";
+            color: #027BFF;
+        }
+
+        .Search {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        form {
+            padding-left: 30px;
+            padding-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            padding-left: 10px;
+            height: 35px;
+            width: 318px;
+            border-radius: 5px;
+            border: 1px solid #808080;
+        }
+
+        .Drop {
+            padding-right: 30px;
+            padding-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

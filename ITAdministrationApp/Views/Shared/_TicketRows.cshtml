@@ -1,0 +1,26 @@
+﻿@* @model List<PaginationViewModel>
+@using ITAdministrationApp.Areas.Admin.Models
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.TicketID</td>
+        <td>@item.Title</td>
+        <td>@item.Description</td>
+        <td>@item.RequestedBy</td>
+        <td>@item.RequestedOn</td>
+        <td>@item.TicketStatusID</td>
+        <td>@item.AssignTo</td>
+        <td>@item.AssignedBy</td>
+        <td>
+            <div class="btn-group" role="group">
+                <a class="btn btn-primary btn-sm me-1" asp-action="Update" asp-route-TicketID="@item.TicketID">Update</a>
+                <form method="post" asp-action="Delete" asp-route-id="@item.TicketID" onsubmit="return confirm('Are you sure you want to delete this ticket?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+}
+ *@

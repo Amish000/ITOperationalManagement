@@ -1,0 +1,64 @@
+.sidebar-container {
+  width: 251px;
+  height: 100vh;
+  background-color: #222831;
+}
+
+.sidebar-link {
+  border: 1px solid #fff;
+  height: 75px;
+  display: flex;
+  /* / justify-content: center; / */
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+  padding-left: 30px;
+}
+
+.sidebar-title {
+  color: #fff;
+  font-size: 20px;
+  font-family: "Montserrat";
+}
+.sidebar-links {
+  width: 251px;
+  border: 1px solid #fff;
+  height: 75px;
+  background-color: #222831;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Montserrat";
+  list-style: none !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 10px;
+  padding-left: 30px;
+}
+
+.sidebar-links:hover {
+  background-color: #0d6efd;
+}
+.sidebar-drop {
+  border: 1px solid #fff;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  text-decoration: none;
+}
+.sidebar-drop:hover {
+  background-color: #0d6efd;
+}
+.sidebardropdown {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-family: "Montserrat";
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.sidebardropdown:hover {
+  color: #fff !important;
+}

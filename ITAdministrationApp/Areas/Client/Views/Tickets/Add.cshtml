@@ -1,0 +1,98 @@
+﻿@using ITAdministrationApp.Base
+@model TicketManagement.Models.ServiceTicketModel
+
+@{
+    ViewData["Title"] = "Add Ticket";
+}
+<h1 class="text-center mt-3 mb-3">Add Ticket</h1>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+           @*  <form asp-action="Add" method="post" asp-controller="Tickets"> *@
+            <form asp-action="Add" method="post" asp-controller="Tickets">
+
+               <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3 d-flex">
+                    <label asp-for="Title" class="form-label col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex">
+                    <label asp-for="Description" class="form-label col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+            @*     <div class="mb-2 d-flex">
+
+                    <label asp-for="RequestedBy" class="form-label col-sm-3 col-form-label">Requested by</label>
+                    <div class="col-sm-9">
+                        <input asp-for="RequestedBy" class="form-control" />
+                        <span asp-validation-for="RequestedBy" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+              @*   <div class="mb-2 d-flex">
+                    <label asp-for="RequestedOn" class="form-label col-sm-3 col-form-label">Requested On</label>
+                    <div class="col-sm-9">
+                        <input asp-for="RequestedOn" class="form-control" type="date" />
+                        <span asp-validation-for="RequestedOn" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+            @*     <div class="mb-2 d-flex">
+                    <label asp-for="TicketStatusID" class="form-label col-sm-3 col-form-label">Ticket Status</label>
+                    <div class="col-sm-9">
+                        <input asp-for="TicketStatusID" class="form-control" />
+                        <span asp-validation-for="TicketStatusID" class="text-danger"></span>
+                    </div>
+                </div> *@
+                <div class="mb-2 d-flex">
+                    <label asp-for="AssignTo" class="form-label col-sm-3 col-form-label">Vendor</label>
+                    <div class="col-sm-9">
+                        <select asp-for="AssignTo" class="form-select">
+                            <option value="Ronik">Ronik</option>
+                            <option value="Abhishek">Abhishek</option>
+                            <option value="Sarif">Sarif</option>
+                            <option value="Ramesh">Ramesh</option>
+                        </select>
+                        <span asp-validation-for="AssignTo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @* <div class="mb-2 d-flex">
+                    <label asp-for="AssignTo" class="form-label col-sm-3 col-form-label">Assigned To</label>
+                    <div class="col-sm-9">
+                        <input asp-for="AssignTo" class="form-control" />
+                        <span asp-validation-for="AssignTo" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+               @*  <div class="mb-2 d-flex">
+                    <label asp-for="AssignedBy" class="form-label col-sm-3 col-form-label">Assigned By</label>
+                    <div class="col-sm-9">
+                        <input asp-for="AssignedBy" class="form-control" />
+                        <span asp-validation-for="AssignedBy" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                <div class="mt-3 d-flex justify-content-end">
+                    
+
+                    <button type="button" class="btn btn-danger me-2" onclick="window.location.href='@Url.Action("Index", "Tickets")'">Cancel</button>
+                    <button type="submit" class="btn btn-primary ">Save </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

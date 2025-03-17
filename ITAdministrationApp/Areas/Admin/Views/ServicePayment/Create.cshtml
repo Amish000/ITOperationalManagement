@@ -1,0 +1,105 @@
+﻿@* @model ITAdministrationApp.Areas.Admin.Models.ServicePaymentModel *@
+@model ITAdministrationApp.Areas.Admin.Models.ServicePaymentAddModel
+
+
+@{
+    ViewData["Title"] = "Create Payment";
+}
+
+<h1 class="text-center mt-3 mb-3">Create Payment</h1>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation">
+
+                <input type="hidden" asp-for="LogID" />
+                <input type="hidden" name="serviceID" value="@ViewBag.ServiceID" />
+                
+                @* <div class="mb-2 d-flex">
+                    <label asp-for="ServiceID" class="form-label col-sm-3 col-form-label">Service ID</label>
+                    <div class="col-sm-9">
+                        <input asp-for="ServiceID" class="form-control" />
+                        <span asp-validation-for="ServiceID" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                @*Added on Monday*@
+                 @*<div class="mb-2 d-flex">
+                    <label asp-for="Vendor" class="form-label col-sm-3 col-form-label">Vendor</label>
+                    <div class="col-sm-9">
+                        <select asp-for="Vendor" class="form-select" placeholder="Select the vendor">
+                            <option value="GoDaddy">GoDadddy</option>
+                            <option value="Chimp">Chimp</option>
+                            <option value="Vendor3">Vendor 3</option> 
+                        </select>
+                        <span asp-validation-for="Vendor" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="PaidAmount" class="form-label col-sm-3 col-form-label">Paid Amount</label>
+                    <div class="col-sm-9">
+                        <input asp-for="PaidAmount" class="form-control" />
+                        <span asp-validation-for="PaidAmount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @* <div class="mb-2 d-flex">
+                    <label asp-for="LastPaidDate" class="form-label col-sm-3 col-form-label">Last Paid Date</label>
+                    <div class="col-sm-9">
+                        <input asp-for="LastPaidDate" class="form-control" />
+                        <span asp-validation-for="LastPaidDate" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="PaidBy" class="form-label col-sm-3 col-form-label">Paid By</label>
+                    <div class="col-sm-9">
+                        <input asp-for="PaidBy" class="form-control" />
+                        <span asp-validation-for="PaidBy" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="Remarks" class="form-label col-sm-3 col-form-label">Remarks</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Remarks" class="form-control" />
+                        <span asp-validation-for="Remarks" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label class="form-label col-sm-3 col-form-label" for="IsActive">Active</label>
+                    <div class="col-sm-9">
+                        <select asp-for="IsActive" class="form-select" id="IsActive">
+                            <option value="true">Active</option>
+                            <option value="false">Pending</option>
+                        </select>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @* <div class="mb-2 d-flex">
+                    <label class="form-label col-sm-3 col-form-label" for="IsDeleted">Deleted</label>
+                    <div class="col-sm-9">
+                        <select asp-for="IsDeleted" class="form-select" id="IsDeleted">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                        <span asp-validation-for="IsDeleted" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                <div class="mt-3 button-container d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-2 custom-button">Create</button>
+                    <a asp-action="Index" type="button" class="btn btn-danger custom-button">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

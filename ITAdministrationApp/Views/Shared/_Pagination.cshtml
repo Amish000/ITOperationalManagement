@@ -1,0 +1,14 @@
+﻿@* @using ITAdministrationApp.Areas.Admin.Models
+@model PaginationViewModel
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-itemsPerPage="6" asp-route-search="@Model.SearchKeyword">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+ *@

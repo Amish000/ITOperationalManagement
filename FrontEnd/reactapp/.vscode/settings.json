@@ -1,0 +1,15 @@
+{
+    //...
+    // Cody autocomplete configuration:
+    "cody.autocomplete.advanced.provider": "ollama",
+    "cody.autocomplete.experimental.ollamaOptions": {
+      "url": "http://127.0.0.1:11434",
+      "model": "llama3.2:latest"
+    },
+    // Enable Ollama for Cody Chat:
+    "cody.experimental.ollamaChat": true,
+    // optional but useful to see detailed logs in the OUTPUT tab
+    // (make sure to select "Cody by Sourcegraph" from the dropbdown)
+    "cody.debug.verbose": true
+    //...
+  }

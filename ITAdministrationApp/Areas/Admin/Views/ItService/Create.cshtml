@@ -1,0 +1,111 @@
+﻿@model ITAdministrationApp.Areas.Admin.Models.ItServiceShowServiceIDDetailViewModel
+@using ITAdministrationApp.Base
+
+@{
+    ViewData["Title"] = "Create Service";
+}
+
+<h1 class="text-center mt-3 mb-3">Create Service</h1>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation">
+
+                <input type="hidden" asp-for="ServiceID" />
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="ServiceName" class="form-label col-sm-3 col-form-label">Service Name</label>
+                    <div class="col-sm-9">
+                        <input asp-for="ServiceName" class="form-control" />
+                        <span asp-validation-for="ServiceName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="BuyFrom" class="form-label col-sm-3 col-form-label">Vendor</label>
+                    <div class="col-sm-9">
+                        <select asp-for="BuyFrom" class="form-select" id="BuyFrom">
+                            <option value="GoDaddy">GoDadddy</option>
+                            <option value="Chimp">Chimp</option>
+                        </select>
+                        <span asp-validation-for="BuyFrom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="ServiceType" class="form-label col-sm-3 col-form-label">Service Type</label>
+                    <div class="col-sm-9">
+                        <select asp-for="ServiceType" class="form-select" id="ServiceType">
+                            <option value="Domain">Domain</option>
+                            <option value="SSLCert">SSLCert</option>
+                            @* <option value="Option3">Option 3</option> *@
+                        </select>
+                        <span asp-validation-for="ServiceType" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="ServiceDescription" class="form-label col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <textarea asp-for="ServiceDescription" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="ExpiredOn" class="form-label col-sm-3 col-form-label">Expired On</label>
+                    <div class="col-sm-9">
+                        <input asp-for="ExpiredOn" class="form-control" />
+                        <span asp-validation-for="ExpiredOn" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @* <div class="mb-2 d-flex">
+                    <label asp-for="LastPaidDate" class="form-label col-sm-3 col-form-label">Last Paid</label>
+                    <div class="col-sm-9">
+                        <input asp-for="LastPaidDate" class="form-control" />
+                        <span asp-validation-for="LastPaidDate" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                @* <div class="mb-2 d-flex">
+                    <label asp-for="PaidAmount" class="form-label col-sm-3 col-form-label">Paid Amount</label>
+                    <div class="col-sm-9">
+                        <input asp-for="PaidAmount" class="form-control" />
+                        <span asp-validation-for="PaidAmount" class="text-danger"></span>
+                    </div>
+                </div> *@
+
+                <div class="mb-2 d-flex">
+                    <label class="form-label col-sm-3 col-form-label" for="IsActive">Status</label>
+                    <div class="col-sm-9">
+                        <select asp-for="IsActive" class="form-select" id="IsActive">
+                            <option value="true">Active</option>
+                            <option value="false">Pending</option>
+                        </select>
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-flex">
+                    <label asp-for="UsedInDomains" class="form-label col-sm-3 col-form-label">Domains Used</label>
+                    <div class="col-sm-9">
+                        <input asp-for="UsedInDomains" class="form-control" />
+                        <span asp-validation-for="UsedInDomains" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-3 button-container d-flex justify-content-end">
+                   @*  <button type="submit" class="btn btn-primary me-2 custom-button">Create</button> *@
+                        <a asp-action="Index" type="button" class="btn btn-danger me-2 custom-button">Cancel</a>
+                         <button type="submit" class="btn btn-primary custom-button">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
