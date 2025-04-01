@@ -61,6 +61,9 @@ var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfig>();
 builder.Services.AddSingleton(jwtConfig);
 builder.Services.AddScoped<IJwtService, JwtService>();
 
+// Add service for ticket clustering
+builder.Services.AddSingleton<TicketClassificationService>();
+
 // Add JWT Authentication
 builder.Services.AddAuthentication(options =>
 {

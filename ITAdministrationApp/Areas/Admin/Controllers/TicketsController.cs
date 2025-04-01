@@ -21,12 +21,9 @@ namespace ITAdministrationApp.Areas.Admin.Controllers
     public class TicketsController(IWebHostEnvironment hostingEnvironment, ILogger<TicketsController> logger)
         : ApiControllerBase
     {
-        private readonly IWebHostEnvironment _hostingEnvironment = hostingEnvironment;
         private readonly TicketManagerAdmin _TicketManagerAdmin = new();
-        private readonly ILogger<TicketsController> _logger = logger;
         private readonly NotificationManager _notificationManager = new();
         private readonly TicketManager _ticetManager = new();
-        private readonly ApplicationDbContext _applicationDbContext;
         private readonly LogTicketManager _logTicketManager = new();
 
         [HttpGet("Index")]

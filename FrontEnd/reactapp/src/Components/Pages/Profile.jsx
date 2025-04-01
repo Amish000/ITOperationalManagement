@@ -319,7 +319,8 @@ const Profile = () => {
                         variant="outlined"
                         fullWidth
                         margin="normal"
-                        onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })}
+                        autoComplete='off'
+                        onChange={(e) => setFormData({ currentPassword: e.target.value })}
                         sx={{
                             mb: 3,
                             '.MuiInputBase-root': {
@@ -349,6 +350,7 @@ const Profile = () => {
                         variant="outlined"
                         fullWidth
                         margin="normal"
+                        autoComplete='off'
                         onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                         sx={{
                             mb: 3,
@@ -379,6 +381,7 @@ const Profile = () => {
                         variant="outlined"
                         fullWidth
                         margin="normal"
+                        autoComplete='off'
                         onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                         sx={{
                             mb: 3,
