@@ -27,25 +27,23 @@ namespace ITAdministrationApp.Areas.Admin.Controllers
             return Ok(new { message = "Anomaly model trained successfully." });
         }
 
-        [HttpPost("PredictCategory")]
-        public IActionResult PredictCategory([FromBody] List<string> ticketDescriptions)
+        [HttpGet("PredictCategory")]
+        public IActionResult PredictCategory([FromQuery] string ticketDescription)
         {
-            if (ticketDescriptions == null || !ticketDescriptions.Any())
+            if (string.IsNullOrEmpty(ticketDescription))
             {
-                return BadRequest(new { message = "Invalid request: No ticket descriptions provided." });
+                return BadRequest(new { message = "Invalid request: No ticket description provided." });
             }
 
-            var anomalies = ticketDescriptions.Select(description =>
-            {
-                var category = _ticketClassificationService.PredictTicketCategory(description);
-                return new
-                {
-                    TicketDescription = description,
-                    PredictedCategory = category
-                };
-            }).ToList();
+            var category = _ticketClassificationService.PredictTicketCategory(ticketDescription);
 
-            return Ok(new { result = anomalies });
+            var result = new
+            {
+                TicketDescription = ticketDescription,
+                PredictedCategory = category
+            };
+
+            return Ok(result);
         }
     }
 }
