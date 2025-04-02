@@ -8,26 +8,26 @@ namespace ITAdministrationApp.Areas.Admin.Controllers
     [ApiController]
     public class TicketAnomalyController : ControllerBase
     {
-        private readonly TicketClassificationService _ticketClassificationService;
-        private readonly TicketManager _ticketManager;
+        private readonly TicketClusterService _TicketClusterService;
+        private readonly TicketManager _TicketManager;
 
-        public TicketAnomalyController(TicketClassificationService ticketclassificationService, TicketManager ticketManager)
+        public TicketAnomalyController(TicketClusterService TicketClusterService, TicketManager ticketManager)
         {
-            _ticketClassificationService = ticketclassificationService;
-            _ticketManager = ticketManager;
+            _TicketClusterService = TicketClusterService;
+            _TicketManager = ticketManager;
         }
 
         [HttpPost("TrainAnomalyModel")]
         public async Task<IActionResult> TrainAnomalyModel()
         {
-            var tickets = await _ticketManager.GetAllTickets(1, 500, "TicketID", "ASC");
+            var tickets = await _TicketManager.GetAllTickets(1, 500, "TicketID", "ASC");
 
             var descriptions = tickets.Select(t => new TicketDescription
             {
                 Description = t.Description, // Make sure this exists in your Ticket model
             }).ToList();
 
-            _ticketClassificationService.TrainModel(descriptions);
+            _TicketClusterService.TrainModel(descriptions);
 
             return Ok(new { message = "Anomaly model trained successfully." });
         }
@@ -39,7 +39,7 @@ namespace ITAdministrationApp.Areas.Admin.Controllers
             // Predict categories for each description in the request
             var anomalies = ticketDescriptions.Select(description =>
             {
-                var category = _ticketClassificationService.PredictCluster(description);
+                var category = _TicketClusterService.PredictCluster(description);
                 return new { 
                     TicketDescription = description, 
                     PredictedCategory = category };

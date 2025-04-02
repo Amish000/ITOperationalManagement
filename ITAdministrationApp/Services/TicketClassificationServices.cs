@@ -1,5 +1,8 @@
-using Microsoft.ML;
+﻿using Microsoft.ML;
 using static ITAdministrationApp.Models.TicketClassification;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace ITAdministrationApp.Services
 {
@@ -30,10 +33,9 @@ namespace ITAdministrationApp.Services
 
             // Define the ML pipeline
             var pipeline = _mlContext.Transforms.Text.FeaturizeText("Features", nameof(TicketDescription.Description))
-                .Append(_mlContext.Transforms.Conversion.MapValueToKey("Label"))
-                .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy())
-                .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
-
+                .Append(_mlContext.Transforms.Conversion.MapValueToKey(inputColumnName: "Label", outputColumnName: "LabelKey"))
+                .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy(labelColumnName: "LabelKey", featureColumnName: "Features"))
+                .Append(_mlContext.Transforms.Conversion.MapKeyToValue(inputColumnName: "PredictedLabel", outputColumnName: "PredictedCategory"));
 
             // Train the model
             _model = pipeline.Fit(dataView);
@@ -76,10 +78,7 @@ namespace ITAdministrationApp.Services
 
             // Debug log to check prediction result
             Console.WriteLine($"Predicted Category: {prediction.PredictedCategory}");
-
             return prediction.PredictedCategory;
         }
-
     }
-
 }

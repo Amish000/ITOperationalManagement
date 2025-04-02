@@ -6,12 +6,12 @@ using System.Linq;
 using static ITAdministrationApp.Models.TicketAnomaly;
 namespace ITAdministrationApp.Services
 {
-    public class TicketClassificationService
+    public class TicketClusterService
     {
         private readonly MLContext _mlContext;
         private ITransformer _model;
 
-        public TicketClassificationService()
+        public TicketClusterService()
         {
             _mlContext = new MLContext();
         }
