@@ -90,7 +90,16 @@ export const DeleteTicket = async (id) => {
     throw error.response?.data || { message: "Failed to Delete Item" };
   }
 };
-
+export const PredictCategory = async (description) => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/TicketClassification/PredictCategory?ticketDescription=${description}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: "Failed to fetch services" };
+  }
+};
 //api/admin/Tickets/{id} (DETAIL)
 export const GetTicketDetails = async (id) => {
   try {

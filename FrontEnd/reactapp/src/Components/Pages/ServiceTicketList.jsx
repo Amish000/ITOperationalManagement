@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TicketServicesAll, DeleteTicket, UpdateTicketStatus, GetTicketDetails } from '../../services/ticketServiceAdmin';
+import React, { useState, useRef, useEffect } from 'react';
+import { TicketServicesAll, DeleteTicket, UpdateTicketStatus, GetTicketDetails, PredictCategory } from '../../services/ticketServiceAdmin';
 import { getLogTickets } from '../../services/logTicketService';
 import { toast } from 'react-toastify';
 import Timeline from '@mui/lab/Timeline';
@@ -77,6 +77,9 @@ const ServiceTicketList = () => {
   const [ticket, setTicket] = useState({});
   const [ticketLog, setTicketLog] = useState([]);
   const [openEditBox, setOpenEditBox] = useState(false);
+  const [label, setLabel] = useState('');
+  const [description, setDescription] = useState('');
+  const hasPredicted = useRef(false);
   const roleString = localStorage.getItem('user');
   const role = roleString ? JSON.parse(roleString) : null;
   const userRoles = role && role.roles ? role.roles : [];
@@ -142,14 +145,34 @@ const ServiceTicketList = () => {
     try {
       const response = await GetTicketDetails(ticketIdToDetail);
       setTicket(response.data);
+      setDescription(response.data.description);  // Set description from ticket data
     } catch (error) {
       console.log('failed to fetch ticket details');
     }
   };
 
   useEffect(() => {
-    fetchTicketDetails();
+    if (ticketIdToDetail) {
+      fetchTicketDetails();
+    }
   }, [ticketIdToDetail]);
+
+  const categoryPrediction = async () => {
+    try {
+      const response = await PredictCategory(description);
+      console.log("Predicted Category", response.predictedCategory);
+      setLabel(response.predictedCategory);
+      hasPredicted.current = true;  // Set the flag to true once prediction is done
+    } catch (error) {
+      console.log('Error predicting category:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (description && !hasPredicted.current) {
+      categoryPrediction();
+    }
+  }, [description]);
 
   useEffect(() => {
     // Update activeStep whenever ticket changes
@@ -960,6 +983,14 @@ const ServiceTicketList = () => {
               </Stack>
               <Typography variant="h6" fontWeight='light' color="#212121">
                 {ticket.description}
+              </Typography>
+              <Stack sx={{ gap: { xs: 2, sm: 5 }, paddingBottom: "8px" }}>
+                <Typography variant="h4" color="#212121" sx={{ mt: 3 }}>
+                  Predicted Label
+                </Typography>
+              </Stack>
+              <Typography variant="h6" fontWeight='light' color="#212121">
+                {label}
               </Typography>
             </Card>
           </Box>

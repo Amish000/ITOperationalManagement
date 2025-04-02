@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TicketServicesSettled, DeleteTicket, GetTicketDetails } from '../../services/ticketServiceAdmin';
+import React, { useState, useEffect, useRef } from 'react';
+import { TicketServicesSettled, DeleteTicket, GetTicketDetails, PredictCategory } from '../../services/ticketServiceAdmin';
 import { getLogTickets } from '../../services/logTicketService';
 import { toast } from 'react-toastify';
 import Timeline from '@mui/lab/Timeline';
@@ -67,6 +67,9 @@ const ServiceTicketSettled = () => {
   const [openLog, setOpenLog] = useState(false);
   const [ticketLog, setTicketLog] = useState([]);
   const [ticket, setTicket] = useState({});
+  const [label, setLabel] = useState('');
+  const [description, setDescription] = useState('');
+  const hasPredicted = useRef(false);
   const roleString = localStorage.getItem('user');
   const role = roleString ? JSON.parse(roleString) : null;
   const userRoles = role && role.roles ? role.roles : [];
@@ -117,15 +120,34 @@ const ServiceTicketSettled = () => {
     try {
       const response = await GetTicketDetails(ticketIdToDetail);
       setTicket(response.data);
+      setDescription(response.data.description);
     } catch (error) {
       console.log('failed to fetch ticket details');
     }
   };
 
   useEffect(() => {
-    fetchTicketDetails();
+    if (ticketIdToDetail) {
+      fetchTicketDetails();
+    }
   }, [ticketIdToDetail]);
 
+  const categoryPrediction = async () => {
+    try {
+      const response = await PredictCategory(description);
+      console.log("Predicted Category", response.predictedCategory);
+      setLabel(response.predictedCategory);
+      hasPredicted.current = true;  // Set the flag to true once prediction is done
+    } catch (error) {
+      console.log('Error predicting category:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (description && !hasPredicted.current) {
+      categoryPrediction();
+    }
+  }, [description]);
 
   const fetchServices = async () => {
     try {
